@@ -33,6 +33,7 @@ class Page1(tk.Frame):
         self.master = master
         self.message = Label(self, text='Invalid password')
 
+
         fileZIP = "data_file.zip"  # type: str
 
         def checkPassword(event):
