@@ -229,19 +229,3 @@ class Page2(tk.Frame):
 if __name__ == "__main__":
     app = Page()
     app.mainloop()
-
-
-'''
-class Page3(tk.Frame):
-    def __init__(self, master):
-        tk.Frame.__init__(self, master)
-        tk.master = master
-
-        tk.bb = Button(text="Стр 3", command=self.show3)
-        tk.bb.pack()
-        tk.label1 = Label(text="3")
-        tk.label1.pack()
-
-    def show3(event):
-        print(3)
-'''
