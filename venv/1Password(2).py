@@ -229,3 +229,4 @@ class Page2(tk.Frame):
 if __name__ == "__main__":
     app = Page()
     app.mainloop()
+    print("hyu")
