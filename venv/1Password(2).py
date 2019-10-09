@@ -181,6 +181,7 @@ class Page2(tk.Frame):
             ourDictionary.update({
             'login': '' + tk.entryLogin.get() + '', 'password': '' + tk.entryPassword.get() + ''
             })
+            
         self.refreshList()
 
 
