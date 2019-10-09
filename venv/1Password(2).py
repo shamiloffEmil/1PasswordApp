@@ -2,7 +2,6 @@
 
 import json
 import os
-
 import tkinter as tk
 from tkinter import *
 from tkinter import messagebox as mb
@@ -119,8 +118,6 @@ class Page2(tk.Frame):
        tk.entryPassword.insert(0, tk.password)
        self.entrySite.insert(0,self.site)
 
-        #tk.master.switch_frame(Page3)  не убивает текущую страницу??????
-
     def onselect(self,a):
         selecion = tk.l.curselection()
         key = tk.l.get(selecion[0])
@@ -196,9 +193,6 @@ class Page2(tk.Frame):
             myzip.write('data_file.json')
 
     def on_closing(self):
-        print("pidor")
-        #if messagebox.askokcancel("Quit", "Do you want to quit?"):
-        #    root.destroy()
         answer = mb.askyesno(title="Вопрос", message="Закрыть программу?")
         if answer == True:
             os.remove("data_file.json")
@@ -229,4 +223,3 @@ class Page2(tk.Frame):
 if __name__ == "__main__":
     app = Page()
     app.mainloop()
-    print("hyu")
