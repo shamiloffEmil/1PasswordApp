@@ -47,6 +47,7 @@ htmlcov/
 nosetests.xml
 coverage.xml
 *.cover
+*.py,cover
 .hypothesis/
 .pytest_cache/
 
@@ -58,6 +59,7 @@ coverage.xml
 *.log
 local_settings.py
 db.sqlite3
+db.sqlite3-journal
 
 # Flask stuff:
 instance/
@@ -97,16 +99,9 @@ celerybeat-schedule
 
 # Environments
 .env
-.bin
-bin/
-.include
-include/
-.lib
-lib/
-__init__.py
-.idea
-
+.venv
 env/
+venv/
 ENV/
 env.bak/
 venv.bak/
@@ -125,6 +120,6 @@ venv.bak/
 .mypy_cache/
 .dmypy.json
 dmypy.json
-.idea
+
 # Pyre type checker
 .pyre/
