@@ -18,8 +18,6 @@ class Page(tk.Tk):
         new_frame = frame_class(self)
         if self._frame is not None:
             self._frame.destroy()
-            #print(frame_class)
-            print(self._frame)
 
         self._frame = new_frame
         self._frame.pack()
@@ -45,7 +43,7 @@ class Page1(tk.Frame):
                 self.master.switch_frame(Page2)
 
             except RuntimeError:
-                tk.entry.delete(0, END)
+                self.entry.delete(0, END)
                 self.message.pack()
 
         def checkArchive(fzip):
@@ -56,14 +54,14 @@ class Page1(tk.Frame):
                 return True
 
         if checkArchive(fileZIP):
-            tk.lab = Label(self, text='Авторизация')
-            tk.butOK = Button(self, text='Ok')
-            tk.butOK.bind('<Button->', checkPassword)
-            tk.entry = Entry(self, textvariable=self.val, show="*")
+            self.lab = Label(self, text='Авторизация')
+            self.butOK = Button(self, text='Ok')
+            self.butOK.bind('<Button->', checkPassword)
+            self.entry = Entry(self, textvariable=self.val, show="*")
 
-            tk.lab.pack()
-            tk.butOK.pack()
-            tk.entry.pack()
+            self.lab.pack()
+            self.butOK.pack()
+            self.entry.pack()
 
         else:
 
@@ -74,25 +72,25 @@ class Page2(tk.Frame):
     def __init__(self, master):
         tk.Frame.__init__(self, master)
         self.master = master
-        tk.master = master
-        tk.l = Listbox(selectmode=EXTENDED)
-        tk.l.bind('<<ListboxSelect>>', self.onselect)
-        tk.l.pack(side=TOP)
-        tk.site = ''
-        tk.login = ''
-        tk.password = ''
+
+        self.l = Listbox(selectmode=EXTENDED)
+        self.l.bind('<<ListboxSelect>>', self.onselect)
+        self.l.pack(side=TOP)
+        self.site = ''
+        self.login = ''
+        self.password = ''
         self.data = {}
         self.FillInList()
-        tk.entryLogin = Entry(self, textvariable="")
-        tk.entryPassword = Entry(self, textvariable="")
-        tk.entryLogin.pack()
-        tk.entryPassword.pack()
-        tk.bPlus = Button(text="+", command=self.newSite)
-        tk.bMinus = Button(text="-", command=self.deleteSite)
-        tk.btun = Button(text="Изменить", command=self.addSite)
-        tk.btun.pack()
-        tk.bPlus.pack()
-        tk.bMinus.pack()
+        self.entryLogin = Entry(self, textvariable="")
+        self.entryPassword = Entry(self, textvariable="")
+        self.entryLogin.pack()
+        self.entryPassword.pack()
+        self.bPlus = Button(text="+", command=self.newSite)
+        self.bMinus = Button(text="-", command=self.deleteSite)
+        self.btun = Button(text="Изменить", command=self.addSite)
+        self.btun.pack()
+        self.bPlus.pack()
+        self.bMinus.pack()
         self.entrySite = Entry(self, textvariable="")
         self.entrySite.pack_forget()
         self.counterButtonSave = 0
@@ -104,40 +102,42 @@ class Page2(tk.Frame):
 
     def showPassword(self):
 
-       selecion = tk.l.curselection()
-       key = tk.l.get(selecion[0])
+       selecion = self.l.curselection()
+       key = self.l.get(selecion[0])
        JString = self.data.get(key)
        self.site = key
-       tk.login = JString.get('login')
-       tk.password = JString.get('password')
+       self.login = JString.get('login')
+       self.password = JString.get('password')
 
-       tk.entryLogin.delete(0, END)
-       tk.entryPassword.delete(0, END)
+       self.entryLogin.delete(0, END)
+       self.entryPassword.delete(0, END)
        self.entrySite.delete(0, END)
-       tk.entryLogin.insert(0, tk.login)
-       tk.entryPassword.insert(0, tk.password)
+       self.entryLogin.insert(0, self.login)
+       self.entryPassword.insert(0, self.password)
        self.entrySite.insert(0,self.site)
 
     def onselect(self,a):
-        selecion = tk.l.curselection()
-        key = tk.l.get(selecion[0])
+        selecion = self.l.curselection()
+        key = self.l.get(selecion[0])
         JString = self.data.get(key)
 
         self.site = key
-        tk.login = JString.get('login')
-        tk.password = JString.get('password')
+        self.login = JString.get('login')
+        self.password = JString.get('password')
 
-        tk.entryLogin.delete(0, END)
-        tk.entryPassword.delete(0, END)
+        self.entryLogin.delete(0, END)
+        self.entryPassword.delete(0, END)
         self.entrySite.delete(0, END)
-        tk.entryLogin.insert(0, tk.login)
-        tk.entryPassword.insert(0, tk.password)
+        self.entryLogin.insert(0, self.login)
+        self.entryPassword.insert(0, self.password)
         self.entrySite.insert(0, self.site)
 
 
     def deleteSite(self):
-        selection = tk.l.curselection()
-        tk.l.delete(selection[0])
+        selection = self.l.curselection()
+        self.deleteInLabel()
+        self.l.delete(selection[0])
+
 
     def addSite(self):
         #self.entrySite = Entry(self, textvariable="")
@@ -147,9 +147,9 @@ class Page2(tk.Frame):
 
         if self.counterButtonSave ==1:
             self.entrySite.pack()
-            tk.bAdd = Button(text="Сохранить", command=self.saveInLabel).pack()
+            self.bAdd = Button(text="Сохранить", command=self.saveInLabel).pack()
 
-        tk.btun.pack_forget()
+        self.btun.pack_forget()
 
     def newSite(self):
         self.counterButtonSave += 1;
@@ -157,34 +157,44 @@ class Page2(tk.Frame):
 
         if self.counterButtonSave == 1:
             self.entrySite.pack()
-            tk.bAdd = Button(text="Сохранить", command=self.saveInLabel).pack()
+            self.bAdd = Button(text="Сохранить", command=self.saveInLabel).pack()
 
 
         self.entrySite.delete(0, END)
-        tk.entryLogin.delete(0, END)
-        tk.entryPassword.delete(0, END)
+        self.entryLogin.delete(0, END)
+        self.entryPassword.delete(0, END)
 
 
     def saveInLabel(self):
         if self.site == self.entrySite.get():
             ourDictionary = self.data[self.site]
             ourDictionary.update({
-            'login':''+tk.entryLogin.get()+'','password':''+tk.entryPassword.get()+''
+            'login':''+self.entryLogin.get()+'','password':''+self.entryPassword.get()+''
             })
         elif self.site  == '':
-            self.data[self.entrySite.get()] = {'login': '' + tk.entryLogin.get() + '', 'password': '' + tk.entryPassword.get() + ''}
+            self.data[self.entrySite.get()] = {'login': '' + self.entryLogin.get() + '', 'password': '' + self.entryPassword.get() + ''}
         else:
             self.data[self.entrySite.get()] = self.data.pop(self.site)
             self.site = self.entrySite.get()
 
             ourDictionary = self.data[self.site]
             ourDictionary.update({
-            'login': '' + tk.entryLogin.get() + '', 'password': '' + tk.entryPassword.get() + ''
+            'login': '' + self.entryLogin.get() + '', 'password': '' + self.entryPassword.get() + ''
             })
             
         self.refreshList()
 
 
+
+        with open("data_file.json", "w") as fb:
+            json.dump(self.data, fb)
+            fb.close()
+
+        with ZipFile('data_file.zip', 'w') as myzip:
+            myzip.write('data_file.json')
+
+    def deleteInLabel(self):
+        self.data.pop(self.site)
 
         with open("data_file.json", "w") as fb:
             json.dump(self.data, fb)
@@ -207,18 +217,18 @@ class Page2(tk.Frame):
     def FillInList(self):
         self.unpacking()
         for key in self.data:
-            tk.l.insert(END, key)
+            self.l.insert(END, key)
 
     def refreshList(self):
-        tk.l.delete(0,END)
+        self.l.delete(0,END)
         for key in self.data:
-            tk.l.insert(END, key)
+            self.l.insert(END, key)
 
     def getPassword(self):
-        return tk.password
+        return self.password
 
     def getLogin(self):
-        return tk.login
+        return self.login
 
 
 if __name__ == "__main__":
